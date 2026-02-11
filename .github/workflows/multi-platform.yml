@@ -1,0 +1,45 @@
+name: Part 2 - Creating multi-platform actions
+
+on:
+  pull_request:
+    branches: [main]
+    
+jobs:
+    ubuntu-job:
+      name: Job on Ubuntu
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        - name: Print the OS information
+          run: echo "Runner information $RUNNER_OS"
+        - name: Run Linux specific command
+          run: uname -a
+        - name: Create a file and show the contents
+          run: echo "This is the content of the Linux file" > linuxFile.txt && cat linuxFile.txt
+          
+    macos-job:
+      name: Job on MacOS
+      runs-on: macos-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        - name: Print the OS information
+          run: echo "Runner information $RUNNER_OS"
+        - name: Run a MacOS specific command
+          run: uname -a
+        - name: Create a file and show the contents
+          run: echo "This is the content of the MacOS file" > macOSFile.txt && cat macOSFile.txt
+          
+    windows-job:
+      name: Job on Windows
+      runs-on: windows-latest
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v4
+        - name: Print the OS information
+          run: echo "Runner information $Env:RUNNER_OS"
+        - name: Run a Windows specific command
+          run: systeminfo
+        - name: Create a file and show the contents
+          run: echo "This is the content of the Windows file" > windows.txt; Get-Content windows.txt

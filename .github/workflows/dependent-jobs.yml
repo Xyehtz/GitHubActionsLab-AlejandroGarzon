@@ -1,0 +1,32 @@
+name: Part 1 - Creating Dependent Jobs Workflow
+  
+on:
+   push:
+     branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare to build the application
+        run: echo Building application...
+      - name: Simulate building the application
+        run: sleep 5
+        
+  test:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Prepare to run tests on the application
+        run: echo Running tests...
+      - name: Simulate testing
+        run: sleep 3
+  
+  deploy:
+     runs-on: ubuntu-latest
+     needs: [test]
+     steps:
+       - name: Prepare to run application
+         run: echo Deploying application...
+       - name: Simulate deploying the application
+         run: sleep 10
